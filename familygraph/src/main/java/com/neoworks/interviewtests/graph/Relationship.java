@@ -1,14 +1,5 @@
 package com.neoworks.interviewtests.graph;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Relationship {
 
     private String email1;
@@ -45,6 +36,7 @@ public class Relationship {
         this.email2 = email2;
     }
 
+    // creates a Relationship Object from a data array
     protected static Relationship createRelationship(String[] metadata) {
         String email1 = metadata[0];
         String relationship = metadata[1];

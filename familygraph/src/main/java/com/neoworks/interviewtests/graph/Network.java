@@ -7,9 +7,10 @@ import static com.neoworks.interviewtests.graph.ParseCSV.readFromCSVR;
 
 public class Network {
 
-    static List<User> users = readFromCSV("data/people.csv");
-    static List<Relationship> relationships = readFromCSVR("data/relationships.csv");
+    static List<User> users = readFromCSV("src/test/resources/people.csv");
+    static List<Relationship> relationships = readFromCSVR("src/test/resources/relationships.csv");
 
+    // converts emails to names
     public String emailToName(String email) {
         String name = "";
         for(User u : users) {
@@ -20,6 +21,7 @@ public class Network {
         return name;
     }
 
+    // converts names to emails
     public static String nametoEmail(String name) {
         String email = "";
         for(User u : users) {
@@ -30,39 +32,30 @@ public class Network {
         return email;
     }
 
+    // returns the no of people loaded from CSV files
     public int getNoPeople() {
         return users.size();
     }
 
+    // returns the no of relationships of a person, being friends or family
     public int getNoRelationships(String name) {
         int noRelationships = 0;
+
+        // convert name to email
         String email = nametoEmail(name);
+
+        // for each relationship, increase the no of relationships in case the email corresponds to any of the sides
+        // of the relationship object
         for(Relationship r : relationships) {
             if (email.equals(r.getEmail1()) || email.equals(r.getEmail2())) {
                 noRelationships++;
             }
         }
-            return noRelationships;
+        return noRelationships;
     }
-//
-//    public static Map<String, List<String>> buildMap(){
-//        Map<String, List<String>> map = new HashMap<>();
-//        for(Relationship r:relationships) {
-//            List<String> list = new ArrayList<>();
-//            String email1 = r.getEmail1();
-//            if(r.getRelationship().equals("FAMILY")) {
-//                list.add(r.getEmail2());
-//            }
-//            if(r.getRelationship().equals("FAMILY") && r.getEmail2().equals(email1)) {
-//                list.add(r.getEmail1());
-//            }
-//            map.put(r.getEmail2(), list);
-//        }
-//        return map;
-//    }
 
-    public static List<String> getFamilyNetwork(String email) {
-//        Map<String, List<String>> familyNetwork = new HashMap<>();
+    // returns the list of emails of the close family network
+    public List<String> getFamilyNetwork(String email) {
         List<String> list = new ArrayList<>();
 
         for(Relationship r:relationships) {
@@ -73,19 +66,24 @@ public class Network {
                 list.add(r.getEmail1());
             }
         }
-//        familyNetwork.put(email, list);
         return list;
     }
 
+    // returns the size of the extended family
     public int sizeExtendedFamily(String name) {
-        Set<String> s = new LinkedHashSet<>();
+        Set<String> familyExtended = new LinkedHashSet<>();
+
+        // get the email of the person
         String email = nametoEmail(name);
+
+        // get the close family network
         List<String> list = getFamilyNetwork(email);
-        System.out.println(list);
+
+        // for each member of the close family, add the members of the extended family
         for(String l:list) {
             List newList = getFamilyNetwork(l);
-            s.addAll(newList);
+            familyExtended.addAll(newList);
         }
-        return s.size();
+        return familyExtended.size();
     }
 }

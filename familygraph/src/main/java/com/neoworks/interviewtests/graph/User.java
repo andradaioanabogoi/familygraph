@@ -1,7 +1,5 @@
 package com.neoworks.interviewtests.graph;
 
-import java.util.List;
-
 public class User {
         private String name;
         private String email;
@@ -13,18 +11,13 @@ public class User {
             this.age = age;
         }
 
-        public int getAge() {
-            return age;
-        }
-        public void setAge(int id) {
-            this.age = age;
-        }
         public String getName() {
             return name;
         }
         public void setName(String name) {
             this.name = name;
         }
+
         public String getEmail() {
             return email;
         }
@@ -32,6 +25,14 @@ public class User {
             this.email = email;
         }
 
+        public int getAge() {
+        return age;
+    }
+        public void setAge(int id) {
+        this.age = age;
+    }
+
+        // creates a User Object from a data array
         protected static User createUser(String[] metadata) {
             String name = metadata[0];
             String email = metadata[1];
