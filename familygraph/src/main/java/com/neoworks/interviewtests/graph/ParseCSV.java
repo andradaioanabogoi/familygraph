@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // This class contains the CSV Parsers for both users and relationships
+// Can be improved
 
 public class ParseCSV {
 
